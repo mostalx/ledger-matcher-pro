@@ -1,0 +1,121 @@
+order_id,customer,order_date,amount
+ORD-1001,Baltic Foods,2026-01-05,4488.07
+ORD-1002,Vistula Logistics,2026-01-05,966.3
+ORD-1003,Baltic Foods,2026-01-08,4482.91
+ORD-1004,Bosphorus Cafe Group,2026-01-06,3604.38
+ORD-1005,Nile Trading,2026-01-07,698.12
+ORD-1006,Vistula Logistics,2026-01-10,3671.81
+ORD-1007,Bosphorus Cafe Group,2026-01-08,4338.71
+ORD-1008,Bosphorus Cafe Group,2026-01-10,1439.58
+ORD-1009,Carpathia Wholesale,2026-01-10,4885.17
+ORD-1010,Nile Trading,2026-01-10,4234.12
+ORD-1011,Lodz Office Supplies,2026-01-12,1059.56
+ORD-1012,Lodz Office Supplies,2026-01-11,692.56
+ORD-1013,Baltic Foods,2026-01-13,5107.84
+ORD-1014,Carpathia Wholesale,2026-01-13,4871.7
+ORD-1015,Warsaw Tech Parts,2026-01-15,880.23
+ORD-1016,Aegean Imports,2026-01-14,3379.44
+ORD-1017,Carpathia Wholesale,2026-01-15,3527.51
+ORD-1018,Baltic Foods,2026-01-15,4018.39
+ORD-1019,Cairo Fresh Market,2026-01-15,5153.61
+ORD-1020,Baltic Foods,2026-01-17,1776.15
+ORD-1021,Lodz Office Supplies,2026-01-17,2315.56
+ORD-1022,Vistula Logistics,2026-01-19,1711.82
+ORD-1023,Baltic Foods,2026-01-20,3864.62
+ORD-1024,Bosphorus Cafe Group,2026-01-20,1582.14
+ORD-1025,Warsaw Tech Parts,2026-01-20,1729.19
+ORD-1026,Bosphorus Cafe Group,2026-01-20,4154.99
+ORD-1027,Nile Trading,2026-01-20,4957.55
+ORD-1028,Lodz Office Supplies,2026-01-22,1716.28
+ORD-1029,Vistula Logistics,2026-01-23,5276.75
+ORD-1030,Lodz Office Supplies,2026-01-22,3984.32
+ORD-1031,Aegean Imports,2026-01-25,2834.28
+ORD-1032,Cairo Fresh Market,2026-01-23,1592.77
+ORD-1033,Bosphorus Cafe Group,2026-01-26,1687.04
+ORD-1034,Carpathia Wholesale,2026-01-25,5402.26
+ORD-1035,Aegean Imports,2026-01-26,1433.03
+ORD-1036,Anatolia Retail,2026-01-28,3037.07
+ORD-1037,Nile Trading,2026-01-26,1044.12
+ORD-1038,Anatolia Retail,2026-01-29,2619.64
+ORD-1039,Baltic Foods,2026-01-28,2382.47
+ORD-1040,Warsaw Tech Parts,2026-01-30,1620.77
+ORD-1041,Bosphorus Cafe Group,2026-01-29,4129.66
+ORD-1042,Baltic Foods,2026-01-31,5326.01
+ORD-1043,Cairo Fresh Market,2026-02-01,2140.03
+ORD-1044,Cairo Fresh Market,2026-01-31,1075.22
+ORD-1045,Nile Trading,2026-02-02,5273.74
+ORD-1046,Cairo Fresh Market,2026-02-03,4607.48
+ORD-1047,Bosphorus Cafe Group,2026-02-01,5242.53
+ORD-1048,Cairo Fresh Market,2026-02-04,3119.83
+ORD-1049,Vistula Logistics,2026-02-02,2337.4
+ORD-1050,Anatolia Retail,2026-02-05,5727.97
+ORD-1051,Bosphorus Cafe Group,2026-02-04,3653.83
+ORD-1052,Warsaw Tech Parts,2026-02-04,804.43
+ORD-1053,Lodz Office Supplies,2026-02-06,1550.8
+ORD-1054,Vistula Logistics,2026-02-07,5689.65
+ORD-1055,Baltic Foods,2026-02-08,2993.04
+ORD-1056,Baltic Foods,2026-02-09,4630.13
+ORD-1057,Anatolia Retail,2026-02-09,2930.4
+ORD-1058,Bosphorus Cafe Group,2026-02-08,1700.58
+ORD-1059,Carpathia Wholesale,2026-02-09,5791.52
+ORD-1060,Bosphorus Cafe Group,2026-02-11,4185.73
+ORD-1061,Cairo Fresh Market,2026-02-11,5971.62
+ORD-1062,Lodz Office Supplies,2026-02-11,5412.74
+ORD-1063,Warsaw Tech Parts,2026-02-11,1600.25
+ORD-1064,Baltic Foods,2026-02-12,273.05
+ORD-1065,Bosphorus Cafe Group,2026-02-12,3592.37
+ORD-1066,Nile Trading,2026-02-13,4290.87
+ORD-1067,Nile Trading,2026-02-13,544.29
+ORD-1068,Nile Trading,2026-02-15,564.52
+ORD-1069,Vistula Logistics,2026-02-15,4063.52
+ORD-1070,Vistula Logistics,2026-02-17,924.02
+ORD-1071,Carpathia Wholesale,2026-02-18,2915.13
+ORD-1072,Warsaw Tech Parts,2026-02-17,1263.9
+ORD-1073,Baltic Foods,2026-02-19,2671.65
+ORD-1074,Aegean Imports,2026-02-18,2882.09
+ORD-1075,Nile Trading,2026-02-20,3972.71
+ORD-1076,Baltic Foods,2026-02-19,2505.33
+ORD-1077,Lodz Office Supplies,2026-02-19,1604.64
+ORD-1078,Vistula Logistics,2026-02-22,2774.39
+ORD-1079,Aegean Imports,2026-02-20,1779.49
+ORD-1080,Vistula Logistics,2026-02-21,2742.31
+ORD-1081,Bosphorus Cafe Group,2026-02-22,445.94
+ORD-1082,Bosphorus Cafe Group,2026-02-22,5818.63
+ORD-1083,Vistula Logistics,2026-02-23,2527.52
+ORD-1084,Warsaw Tech Parts,2026-02-23,5208.2
+ORD-1085,Nile Trading,2026-02-24,2366.99
+ORD-1086,Aegean Imports,2026-02-26,5570.13
+ORD-1087,Warsaw Tech Parts,2026-02-26,2624.59
+ORD-1088,Bosphorus Cafe Group,2026-02-28,4352.69
+ORD-1089,Anatolia Retail,2026-02-26,1885.74
+ORD-1090,Nile Trading,2026-03-01,4454.06
+ORD-1091,Nile Trading,2026-03-02,1984.59
+ORD-1092,Nile Trading,2026-03-02,2939.21
+ORD-1093,Bosphorus Cafe Group,2026-03-01,482.75
+ORD-1094,Bosphorus Cafe Group,2026-03-01,5130.35
+ORD-1095,Baltic Foods,2026-03-04,547.57
+ORD-1096,Vistula Logistics,2026-03-04,851.34
+ORD-1097,Carpathia Wholesale,2026-03-03,3536.68
+ORD-1098,Nile Trading,2026-03-06,629.6
+ORD-1099,Carpathia Wholesale,2026-03-06,3208.28
+ORD-1100,Cairo Fresh Market,2026-03-05,4067.9
+ORD-1101,Lodz Office Supplies,2026-03-06,1703.84
+ORD-1102,Anatolia Retail,2026-03-08,3926.18
+ORD-1103,Warsaw Tech Parts,2026-03-08,5584.76
+ORD-1104,Baltic Foods,2026-03-07,2830.97
+ORD-1105,Carpathia Wholesale,2026-03-08,578.58
+ORD-1106,Vistula Logistics,2026-03-11,1701.42
+ORD-1107,Lodz Office Supplies,2026-03-09,5293.73
+ORD-1108,Lodz Office Supplies,2026-03-11,1072.82
+ORD-1109,Bosphorus Cafe Group,2026-03-12,1919.73
+ORD-1110,Bosphorus Cafe Group,2026-03-11,4057.0
+ORD-1111,Bosphorus Cafe Group,2026-03-13,5600.77
+ORD-1112,Baltic Foods,2026-03-12,1697.13
+ORD-1113,Baltic Foods,2026-03-15,3386.36
+ORD-1114,Cairo Fresh Market,2026-03-14,3688.25
+ORD-1115,Lodz Office Supplies,2026-03-14,4171.86
+ORD-1116,Cairo Fresh Market,2026-03-17,3007.91
+ORD-1117,Nile Trading,2026-03-15,3860.56
+ORD-1118,Cairo Fresh Market,2026-03-16,170.74
+ORD-1119,Anatolia Retail,2026-03-18,5881.82
+ORD-1120,Anatolia Retail,2026-03-19,2734.74

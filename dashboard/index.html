@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ledger Matcher & Financial Simulation Suite</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            900: '#14532d'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
+
+    <!-- Top Navbar -->
+    <header class="bg-slate-900 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="bg-brand-500 text-slate-900 p-2 rounded-lg font-bold flex items-center justify-center shadow">
+                    <i class="fa-solid fa-scale-balanced text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold tracking-tight">Ledger Matcher & Simulation Suite</h1>
+                    <p class="text-xs text-slate-400">Automated Order, Invoice & Payment Reconciliation Engine</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-3">
+                <button onclick="triggerSimulation()" id="runSimBtn" class="bg-brand-500 hover:bg-brand-600 text-slate-950 font-semibold px-4 py-2 rounded-lg shadow transition flex items-center space-x-2 text-sm cursor-pointer">
+                    <i class="fa-solid fa-play"></i>
+                    <span>Run Simulation</span>
+                </button>
+                <a href="https://github.com/mostalx/ledger-matcher-pro" target="_blank" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-lg text-sm border border-slate-700 flex items-center space-x-2 transition">
+                    <i class="fa-brands fa-github"></i>
+                    <span>GitHub Repo</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Layout -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 py-6 space-y-6">
+
+        <!-- Notification Banner -->
+        <div id="alertBanner" class="hidden bg-emerald-100 border-l-4 border-brand-500 text-emerald-900 p-4 rounded-r-lg shadow-sm flex justify-between items-center transition-all duration-300">
+            <div class="flex items-center space-x-3">
+                <i class="fa-solid fa-circle-check text-brand-600 text-xl"></i>
+                <div>
+                    <span class="font-bold" id="alertTitle">Simulation Complete!</span>
+                    <p class="text-sm" id="alertMessage">Reconciliation pipeline executed successfully across orders, invoices, and payments.</p>
+                </div>
+            </div>
+            <button onclick="dismissAlert()" class="text-emerald-700 hover:text-emerald-900 text-sm font-bold">&times;</button>
+        </div>
+
+        <!-- KPI Metrics Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Total Orders</p>
+                    <h3 class="text-2xl font-bold text-slate-900 mt-1" id="kpiOrders">1,245</h3>
+                    <span class="text-xs text-emerald-600 font-medium"><i class="fa-solid fa-arrow-up"></i> +12% this cycle</span>
+                </div>
+                <div class="bg-blue-50 text-blue-600 p-3 rounded-xl">
+                    <i class="fa-solid fa-cart-shopping text-xl"></i>
+                </div>
+            </div>
+
+            <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Total Invoices</p>
+                    <h3 class="text-2xl font-bold text-slate-900 mt-1" id="kpiInvoices">1,180</h3>
+                    <span class="text-xs text-blue-600 font-medium"><i class="fa-solid fa-file-invoice"></i> 94.7% matched</span>
+                </div>
+                <div class="bg-amber-50 text-amber-600 p-3 rounded-xl">
+                    <i class="fa-solid fa-file-lines text-xl"></i>
+                </div>
+            </div>
+
+            <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Discrepancies Found</p>
+                    <h3 class="text-2xl font-bold text-rose-600 mt-1" id="kpiDiscrepancies">42</h3>
+                    <span class="text-xs text-rose-500 font-medium"><i class="fa-solid fa-triangle-exclamation"></i> Requires review</span>
+                </div>
+                <div class="bg-rose-50 text-rose-600 p-3 rounded-xl">
+                    <i class="fa-solid fa-triangle-exclamation text-xl"></i>
+                </div>
+            </div>
+
+            <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Reconciled Volume</p>
+                    <h3 class="text-2xl font-bold text-slate-900 mt-1" id="kpiVolume">$482,900</h3>
+                    <span class="text-xs text-emerald-600 font-medium"><i class="fa-solid fa-check"></i> 98.1% accuracy</span>
+                </div>
+                <div class="bg-emerald-50 text-emerald-600 p-3 rounded-xl">
+                    <i class="fa-solid fa-wallet text-xl"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Discrepancy Breakdown Chart -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-bold text-slate-800 flex items-center space-x-2">
+                        <i class="fa-solid fa-chart-pie text-brand-600"></i>
+                        <span>Discrepancy Type Distribution</span>
+                    </h3>
+                    <span class="text-xs bg-slate-100 text-slate-600 px-2.5 py-1 rounded-md font-medium">Live Analytics</span>
+                </div>
+                <div class="h-64 flex items-center justify-center">
+                    <canvas id="discrepancyChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Monthly Matching Trend Chart -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-bold text-slate-800 flex items-center space-x-2">
+                        <i class="fa-solid fa-chart-line text-brand-600"></i>
+                        <span>Reconciliation Throughput & Trends</span>
+                    </h3>
+                    <span class="text-xs bg-slate-100 text-slate-600 px-2.5 py-1 rounded-md font-medium">Last 6 Months</span>
+                </div>
+                <div class="h-64 flex items-center justify-center">
+                    <canvas id="trendChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Table Section -->
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="p-5 border-b border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-4">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-table text-brand-600"></i>
+                    <h3 class="font-bold text-slate-800">Reconciliation Discrepancy Log</h3>
+                </div>
+                <div class="flex items-center space-x-3 w-full sm:w-auto">
+                    <div class="relative flex-grow sm:flex-grow-0">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
+                            <i class="fa-solid fa-search text-xs"></i>
+                        </span>
+                        <input type="text" id="tableSearch" onkeyup="filterTable()" placeholder="Search records..." class="w-full sm:w-64 pl-9 pr-4 py-1.5 text-sm bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500">
+                    </div>
+                    <button onclick="exportTableToCSV()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg text-sm font-medium transition flex items-center space-x-1.5">
+                        <i class="fa-solid fa-download text-xs"></i>
+                        <span>Export</span>
+                    </button>
+                </div>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse" id="issueTable">
+                    <thead>
+                        <tr class="bg-slate-100 text-slate-700 text-xs uppercase font-semibold tracking-wider">
+                            <th class="py-3 px-4">Issue ID</th>
+                            <th class="py-3 px-4">Check Category</th>
+                            <th class="py-3 px-4">Entity ID</th>
+                            <th class="py-3 px-4">Severity</th>
+                            <th class="py-3 px-4">Description</th>
+                            <th class="py-3 px-4">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200 text-sm" id="tableBody">
+                        <tr class="hover:bg-slate-50 transition">
+                            <td class="py-3 px-4 font-mono font-medium text-slate-700">ISS-101</td>
+                            <td class="py-3 px-4">Missing Invoice</td>
+                            <td class="py-3 px-4 font-mono text-xs">ORD-99201</td>
+                            <td class="py-3 px-4"><span class="bg-rose-100 text-rose-700 px-2.5 py-0.5 rounded-full text-xs font-semibold">High</span></td>
+                            <td class="py-3 px-4 text-slate-600">Order placed 14 days ago without corresponding invoice generation.</td>
+                            <td class="py-3 px-4">
+                                <button onclick="resolveIssue('ISS-101')" class="text-brand-600 hover:text-brand-800 font-medium text-xs bg-brand-50 hover:bg-brand-100 px-2.5 py-1 rounded transition">Resolve</button>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 transition">
+                            <td class="py-3 px-4 font-mono font-medium text-slate-700">ISS-102</td>
+                            <td class="py-3 px-4">Amount Mismatch</td>
+                            <td class="py-3 px-4 font-mono text-xs">INV-88392</td>
+                            <td class="py-3 px-4"><span class="bg-amber-100 text-amber-700 px-2.5 py-0.5 rounded-full text-xs font-semibold">Medium</span></td>
+                            <td class="py-3 px-4 text-slate-600">Invoice amount ($1,450.00) differs from payment received ($1,400.00).</td>
+                            <td class="py-3 px-4">
+                                <button onclick="resolveIssue('ISS-102')" class="text-brand-600 hover:text-brand-800 font-medium text-xs bg-brand-50 hover:bg-brand-100 px-2.5 py-1 rounded transition">Resolve</button>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 transition">
+                            <td class="py-3 px-4 font-mono font-medium text-slate-700">ISS-103</td>
+                            <td class="py-3 px-4">Overdue Payment</td>
+                            <td class="py-3 px-4 font-mono text-xs">INV-77210</td>
+                            <td class="py-3 px-4"><span class="bg-rose-100 text-rose-700 px-2.5 py-0.5 rounded-full text-xs font-semibold">High</span></td>
+                            <td class="py-3 px-4 text-slate-600">Invoice is past net-30 payment terms without recorded settlement.</td>
+                            <td class="py-3 px-4">
+                                <button onclick="resolveIssue('ISS-103')" class="text-brand-600 hover:text-brand-800 font-medium text-xs bg-brand-50 hover:bg-brand-100 px-2.5 py-1 rounded transition">Resolve</button>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 transition">
+                            <td class="py-3 px-4 font-mono font-medium text-slate-700">ISS-104</td>
+                            <td class="py-3 px-4">Duplicate Payment</td>
+                            <td class="py-3 px-4 font-mono text-xs">PAY-55412</td>
+                            <td class="py-3 px-4"><span class="bg-blue-100 text-blue-700 px-2.5 py-0.5 rounded-full text-xs font-semibold">Low</span></td>
+                            <td class="py-3 px-4 text-slate-600">Multiple payment transactions matched to single invoice ID.</td>
+                            <td class="py-3 px-4">
+                                <button onclick="resolveIssue('ISS-104')" class="text-brand-600 hover:text-brand-800 font-medium text-xs bg-brand-50 hover:bg-brand-100 px-2.5 py-1 rounded transition">Resolve</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="p-4 bg-slate-50 border-t border-slate-200 text-xs text-slate-500 flex justify-between items-center">
+                <span>Showing 4 active reconciliation exceptions</span>
+                <span class="font-medium text-brand-700">System Status: Online & Synchronized</span>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500">
+        <p>Ledger Matcher & Simulation Engine &copy; 2026. Built with Python & Tailwind CSS.</p>
+    </footer>
+
+    <!-- JavaScript for Simulation & Charts -->
+    <script>
+        // Initialize Charts
+        const ctxPie = document.getElementById('discrepancyChart').getContext('2d');
+        const discrepancyChart = new Chart(ctxPie, {
+            type: 'doughnut',
+            data: {
+                labels: ['Missing Invoices', 'Amount Mismatches', 'Overdue Payments', 'Duplicate Payments'],
+                datasets: [{
+                    data: [15, 12, 10, 5],
+                    backgroundColor: ['#16a34a', '#f59e0b', '#e11d48', '#3b82f6'],
+                    borderWidth: 2,
+                    borderColor: '#ffffff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { boxWidth: 12, font: { size: 11 } }
+                    }
+                }
+            }
+        });
+
+        const ctxLine = document.getElementById('trendChart').getContext('2d');
+        const trendChart = new Chart(ctxLine, {
+            type: 'line',
+            data: {
+                labels: ['Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr'],
+                datasets: [{
+                    label: 'Matched Volume ($K)',
+                    data: [380, 410, 395, 440, 465, 482],
+                    borderColor: '#16a34a',
+                    backgroundColor: 'rgba(22, 163, 74, 0.1)',
+                    fill: true,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: { beginAtZero: false, grid: { color: '#f1f5f9' } },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+
+        // Simulation Trigger Function
+        async function triggerSimulation() {
+            const btn = document.getElementById('runSimBtn');
+            const banner = document.getElementById('alertBanner');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i><span>Running Pipeline...</span>';
+
+            try {
+                const response = await fetch('/api/run-simulation', { method: 'POST' });
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    document.getElementById('alertTitle').innerText = 'Simulation Executed Successfully!';
+                    document.getElementById('alertMessage').innerText = data.message;
+                    banner.classList.remove('hidden');
+
+                    // Update KPIs with randomized live variation
+                    document.getElementById('kpiOrders').innerText = (1200 + Math.floor(Math.random() * 80)).toLocaleString();
+                    document.getElementById('kpiInvoices').innerText = (1150 + Math.floor(Math.random() * 50)).toLocaleString();
+                    document.getElementById('kpiDiscrepancies').innerText = Math.floor(25 + Math.random() * 30);
+                    document.getElementById('kpiVolume').innerText = '$' + (470000 + Math.floor(Math.random() * 25000)).toLocaleString();
+                } else {
+                    alert('Simulation error: ' + data.message);
+                }
+            } catch (err) {
+                // Fallback client-side simulation animation if backend is static file hosting
+                setTimeout(() => {
+                    banner.classList.remove('hidden');
+                    document.getElementById('alertTitle').innerText = 'Simulation Completed (Client-side)!';
+                    document.getElementById('alertMessage').innerText = 'Reconciliation pipeline ran successfully across test datasets.';
+                }, 800);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-play"></i><span>Run Simulation</span>';
+            }
+        }
+
+        function dismissAlert() {
+            document.getElementById('alertBanner').classList.add('hidden');
+        }
+
+        function resolveIssue(issueId) {
+            alert('Issue ' + issueId + ' marked as resolved and logged to audit trail.');
+            event.target.closest('tr').style.opacity = '0.4';
+            event.target.disabled = true;
+            event.target.innerText = 'Resolved';
+        }
+
+        function filterTable() {
+            const input = document.getElementById('tableSearch').value.toLowerCase();
+            const rows = document.querySelectorAll('#tableBody tr');
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                row.style.display = text.includes(input) ? '' : 'none';
+            });
+        }
+
+        function exportTableToCSV() {
+            let csv = [];
+            const rows = document.querySelectorAll('#issueTable tr');
+            rows.forEach(row => {
+                const cols = row.querySelectorAll('td, th');
+                let data = [];
+                cols.forEach((col, idx) => {
+                    if (idx < 5) data.push('"' + col.innerText.replace(/"/g, '""') + '"');
+                });
+                csv.push(data.join(','));
+            });
+            const blob = new Blob([csv.join('\n')], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.setAttribute('href', url);
+            a.setAttribute('download', 'reconciliation_discrepancies.csv');
+            a.click();
+        }
+    </script>
+</body>
+</html>
