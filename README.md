@@ -8,6 +8,10 @@ Ledger Matcher is a Python-based financial reconciliation application designed t
 
 The application identifies financial discrepancies, generates Excel reports, and provides an interactive web dashboard for monitoring reconciliation results.
 
+## Dashboard Preview
+
+![Ledger Matcher Dashboard](dashboard-preview.png)
+
 ## Key Features
 
 - **Automated Reconciliation:** Matches orders, invoices, and payment records.
