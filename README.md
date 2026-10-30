@@ -15,7 +15,7 @@ https://github.com/user-attachments/assets/2624005f-3fc7-4cb4-9cd1-4ed2cb44f1e6
 
 ## Dashboard Preview
 
-assets/dashboard-preview.png
+![Ledger Matcher Dashboard](assets/dashboard-preview.png)
 
 ## Key Features
 
